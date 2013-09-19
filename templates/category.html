@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Оформить заказ</h1>
+    <div class="site-content-middle-in">
+        <div class="shop-path">
+            <a href="#">Оформить заказ</a> &raquo; 
+            {% for t in titles %}
+                <a href="/category/{{ t.slug }}/">{{ t.name }}</a> &raquo; 
+            {% endfor %}
+            
+        </div>
+
+        <h2 class="shop-product-title">{{ category.name }}</h2>
+
+        <div class="highslide-heading" id="the-heading" style="display:none">
+            <a href="#" onclick="return hs.close()">закрыть</a>
+        </div>
+
+        
+        {% for i in items %}
+            <div class="tovar">
+                <h2><a href="/item/{{ i.slug }}/">{{ i.name }}</a></h2>
+                <a class="highslide" href="/media/{{ i.image }}" onclick="return hs.expand(this)"> 
+                    <img src="/static/images/fr_5.gif" width="180" height="160" style="background:url(/media/{{ i.image }}) 50% 50% no-repeat scroll;" alt="{{ i.name }}"/> 
+                </a>  
+                
+                <ul class="param">
+                    <li class="art">Артикул: <span>{{ i.art }}</span></li>
+                    <li class="vendor">Производитель: <span><a href="#">{{ i.producer.name }}</a></span></li>
+                    <li class="vendor"><a href="/item/{{ i.slug }}/">Подробнее &raquo;</a></li>
+                </ul>
+                <div style="clear:both;">
+                    <div class="t_note"> {{ i.description }} </div>
+                    <form action="" onsubmit="return addProductForm(10633,327764403,132000.00,this,false);">
+                        <ul class="bott">
+                            <li class="buy"><input type="submit" value="" /></li>
+                            <li>Кол-во:<br />
+                            <input class="number" type="text" onclick="this.select()" size="" value="1" name="product_amount" />
+                            </li>
+                            <li class="price">Цена:<br />
+                            <span><b>{{ i.price }}</b> руб.</span></li>
+                        </ul>
+                    </form>
+                </div>  
+            </div>
+        {% endfor %}
+
+    </div>
+ 
+{% endblock %}

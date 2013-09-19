@@ -1,0 +1,325 @@
+/* SHOP START */
+
+#shop-added { display:none; z-index:10000; padding:5px; border:1px solid #666; font: bold 12px Arial, sans-serif; position:absolute; left:0px; top: 0px; background-color:#FFFFCC; color: #cc0000 }
+.added-to-cart{ display:none; z-index:10000; padding:5px; border:1px solid #666; font: bold 12px Arial, sans-serif; position:absolute; left:0px; top: 0px; background-color:#FFFFCC; color: #cc0000 }
+
+/* Таблица корзины с товарами */
+
+table.table_shop { border-collapse:collapse;}
+table.table_shop tr:hover {background:none}
+table.table_shop td { padding:5px; border-bottom: 1px solid #c0c0c0;}
+table.table_shop th { padding:8px 10px; border: 1px solid #c0c0c0; background:#47241b; color:#fff; text-align:left;}
+
+
+/*============== SHOP FULL VERSION =================*/
+
+/*********** Товар ************/
+
+.tovar {height:1%; padding:20px 10px 30px 10px; width:305px; float:left; position:relative; border-bottom:1px dashed #bbb; border-right:1px dashed #ccc;} /* Обертка товара, нижний пунктир тут же */
+
+.tovar h2 { padding:3px 5px 3px; font:normal 14px/16px Arial; height:40px; margin:0;} /* Название товара */
+
+.tovar h2.new a {color:#f00; text-decoration: underline;} /* Название товара если новинка */
+.tovar h2.new a:hover {color:#f00; text-decoration: none;}
+
+.tovar img { float:left;}
+
+.tovar .param { float:left; list-style:none; padding:0; margin:0; width:120px; min-height:150px;}
+.tovar .param li { padding:0 0 0 10px; margin:0; font: normal 11px/14px Arial; color:#666; background:none;}
+
+.tovar .param li.new 
+{
+    background:#ed1401 url(tnew.png) no-repeat; height:26px; margin:1px 0 3px;
+    _background:#ed1401 url(tnew.gif) no-repeat; height:26px; margin:1px 0 3px;
+    font:bold 13px/26px Arial;
+    color:#fff;
+}
+.tovar .param li.spec 
+{
+    background:#ffd910 url(tspec.png) no-repeat; height:26px; margin:1px 0 3px;
+    _background:#ffd910 url(tspec.gif) no-repeat; height:26px; margin:1px 0 3px;
+    font:normal 11px/26px Arial;
+    color:#000;
+}
+
+.tovar .param li.art {padding:8px 0 2px 10px;} /* Артикул */
+.tovar .param li.art span{color:#999;}
+
+.tovar .param li.vendor {padding:7px 0 2px 10px;} /* Производитель */
+.tovar .param li.vendor span{color:#999;}
+
+.tovar .t_note {font: normal 11px Arial; color:#282828; height:50px; padding:8px 0 2px; overflow:hidden;}
+
+.tovar .bott { margin:0 !important; padding:6px 0 5px 10px !important; list-style: none;}
+.tovar .bott li { display:block; float:right; font: normal 11px Arial; text-align:center; padding:2px 4px;}
+
+.tovar .bott li.price { float:left; text-align:left;} /* Цена */
+.tovar .bott li.price span  {font: bold 13px Arial; font-style:italic; color:#010101; width:142px; height:23px; padding-top:5px;}
+.tovar .bott li.price span b { font-size:20px;}
+
+.tovar .number { width:24px; height:22px; background:url(col.gif) no-repeat; border: none; font: bold 13px Arial; text-align:center;} /* Количество */
+
+.tovar .bott li.buy {padding-top:6px;}
+.tovar .bott li.buy input{cursor:pointer; background:url(buy.gif) no-repeat left center; width:104px; height:33px; border:none; padding:0; margin:0} /* Купить */
+.tovar .bott li.no input{background:url(nobuy.gif) no-repeat left center;} /* Нет в наличии */
+
+
+
+
+/***** Карточка товара, внутри ******/
+
+/* Путь наверху */
+#tovar_path {color: #7c7c7c; font-size: 12px; padding:5px 0 15px}
+#tovar_path span {font-size: 13px;}
+#tovar_path a {color:#d13f32; text-decoration:underline;}
+#tovar_path a:hover {color:#d13f32;text-decoration:underline;}
+
+#tovar_card { position:relative;}
+#tovar_card img {float:left}
+
+/* блок Новинка Акция */
+
+#tovar_card #a_list {float:left; margin:0; padding:0; list-style:none; display:block; width:120px;}
+#tovar_card #a_list li {padding-left:10px;}
+#tovar_card #a_list li.new 
+{
+    background:#ed1401 url(tnew.png) no-repeat; height:26px; margin:1px 0 3px;
+    _background:#ed1401 url(tnew.gif) no-repeat; height:26px; margin:1px 0 3px;
+    font:bold 13px/26px Arial;
+    color:#fff;
+}
+#tovar_card #a_list li.spec 
+{
+    background:#ffd910 url(tspec.png) no-repeat; height:26px; margin:1px 0 3px;
+    _background:#ffd910 url(tspec.gif) no-repeat; height:26px; margin:1px 0 3px;
+    font:normal 11px/26px Arial;
+    color:#000;  
+}
+
+/* Блок Артикул Производитель */
+
+#tovar_card #p_list {float:left; margin:0; padding:0; list-style:none;}
+#tovar_card #p_list li {padding:0 0 0 10px; margin:0; font: normal 12px/30px Arial; color:#121; background:none;}
+#tovar_card #p_list li span {color:#666;}
+#tovar_card #p_list li img { float: none; text-align:right; vertical-align: middle}
+
+/* Формочка добавить */
+
+#tovar_card .form_wrap {float: left; width:340px; margin:13px; padding:7px; border: 1px dashed #a8a8a8;}
+#tovar_card .form_wrap form { padding:0; margin:0;}
+
+#tovar_card .bform { margin:0; padding:6px 0 5px 10px; list-style: none;}
+#tovar_card .bform li { display:block; float:right; font: normal 11px Arial; text-align:center; padding:2px 4px;}
+/* Цена */
+#tovar_card .bform li.price { float:left; text-align:left; padding-right:20px;} 
+#tovar_card .bform li.price span  {font: bold 13px Arial; font-style:italic; color:#010101; width:142px; height:23px; padding-top:5px;}
+#tovar_card .bform li.price span b { font-size:20px;}
+/* Количество */
+#tovar_card .bform .number { width:24px; height:22px; background:url(col.gif) no-repeat; border: none; font: bold 13px Arial; text-align:center;}
+/* Купить */
+#tovar_card .bform li.buy {padding-top:6px;}
+#tovar_card .bform li.buy input{cursor:pointer; background:url(buy.gif) no-repeat left center; width:104px; height:33px; border:none; padding:0; margin:0} /* Купить */
+#tovar_card .bform li.no input{background:url(nobuy.gif) no-repeat left center;} /* Нет в наличии */
+
+
+/* Детали товара */
+#tovar_detail { clear:both; padding-top:20px;}
+/* Анонс */
+#tovar_detail .descript { font-size:12px; color:#777; padding:7px 0;}
+/* Подробное описание */
+#tovar_detail .full { clear:both; padding-top:7px;}
+
+
+
+
+/*============== SHOP SHORT VERSION =================*/
+
+
+.tovar2 {height:1%; padding:20px 3px; width:230px; float:left; position:relative; } /* Обертка товара, нижний пунктир тут же */
+
+.tovar2 h2 { padding:3px 5px 3px; font:bold 12px/14px Arial; height:30px; margin:0;} /* Название товара */
+
+.tovar2 h2 a {color:#dbbba6; text-decoration: underline;} /* Название товара если новинка */
+.tovar2 h2 a:hover {color:#dbbba6; text-decoration: none;}
+
+.tovar2 h2.new a {color:#ef0000; text-decoration: underline;} /* Название товара если новинка */
+.tovar2 h2.new a:hover {color:#ef0000; text-decoration: none;}
+
+
+.tovar2 .wrap { margin:0 auto;}
+.tovar2 div.new {position:absolute; width:82px; font: bold 12px/21px Arial; background:#ef0000; color:#fff; text-align:center; margin:-5px 0 0 -5px;}
+
+.tovar2 ul.art {color:#ded1da; padding:0 0 14px 0; margin:0; font-size:11px; list-style:none;}
+.tovar2 ul.art li {padding:1px 5px;}
+.tovar2 ul.art li span {color:#ded1da;}
+
+.tovar2 .param { float:left; list-style:none; padding:0; margin:0; width:120px; min-height:150px;}
+.tovar2 .param li { padding:0 0 0 10px; margin:0; font: normal 11px/14px Arial; color:#ded1da; background:none;}
+
+.tovar2 .t_note {font: normal 11px Arial; color:#ded1da; height:50px; padding:9px 15px; overflow:hidden;}
+
+.tovar2 .bott { margin:6px 0 5px 0; padding:0 25px; list-style: none; width:180px; height:95px;}
+.tovar2 .spec { background:url(spec_lable.jpg) 50% 0 no-repeat;}
+.tovar2 .bott li { display:block; font: normal 11px Arial; text-align:center; padding:2px 4px; float:left;}
+
+.tovar2 .bott li.price {text-align:left; width:120px; padding:10px 4px; color:#ded1da;} /* Цена */
+.tovar2 .bott li.price span  {font: bold 13px Arial; font-style:italic; color:#dbbba6; width:142px; height:23px; padding-top:5px;}
+.tovar2 .bott li.price span b { font-size:20px;}
+
+
+.tovar2 .spec li.price {text-align:left; width:120px; padding:10px 4px; color:#1b1b1b; } /* Цена */
+.tovar2 .spec li.price span  {font: bold 13px Arial; font-style:italic; color:#1b1b1b; width:142px; height:23px; padding-top:5px;}
+.tovar2 .spec li.price span b { font-size:20px;}
+
+
+.tovar2 li.amount {float: left; width:40px; padding:10px 0; color:#ded1da;} 
+.tovar2 li.amount .number { width:24px; height:22px; background:url(col.gif) no-repeat; border: none; font: bold 13px Arial; text-align:center;} /* Количество */
+.tovar2 .spec li.amount {float: left; width:40px; padding:10px 0; color:#1b1b1b;} 
+.tovar2 .spec li.amount .number { width:24px; height:22px; background:url(col.gif) no-repeat; border: none; font: bold 13px Arial; text-align:center;} /* Количество */
+
+.tovar2 .bott li.buy {padding-top:6px; text-align:center; clear:both;}
+.tovar2 .bott li.buy input{cursor:pointer; background:url(buy2.gif) no-repeat left center; width:180px; height:33px; border:none;  } /* Купить */
+.tovar2 .bott li.no input{ background:url(nobuy2.gif) no-repeat left center;} /* Нет в наличии */
+
+
+/***** Карточка товара, внутри ******/
+
+/* Путь наверху */
+#tovar_path2 {color: #dbbba6; font-size: 12px; padding:5px 0 15px}
+#tovar_path2 span {font-size: 13px;}
+#tovar_path2 a {color:#d13f32; text-decoration:underline;}
+#tovar_path2 a:hover {color:#d13f32;text-decoration:underline;}
+
+#tovar_card2 { position:relative;}
+
+#tovar_card2 .wrap {padding:5px; float:left; position:relative}
+#tovar_card2 div.new {position:absolute; width:82px; font: bold 12px/21px Arial; background:#ef0000; color:#fff; text-align:center; margin:-5px 0 0 -5px}
+
+/* Блок Артикул Производитель */
+
+#tovar_card2 #p_list {float:left; margin:10px 0 0 0; padding:0; list-style:none;}
+#tovar_card2 #p_list li {padding:0 0 0 13px; margin:0; font: normal 12px/20px Arial; color:#cccccc; background:none;}
+#tovar_card2 #p_list li span {color:#cccccc;}
+#tovar_card2 #p_list li img { float: none; text-align:right; vertical-align: middle}
+
+/* Формочка добавить */
+
+#tovar_card2 .form_wrap {float: left; width:320px; margin:13px; padding:7px; border: 1px dashed #a8a8a8;}
+#tovar_card2 .spec  { background:#dcb8a8;}
+#tovar_card2 .form_wrap form { padding:0; margin:0;}
+
+#tovar_card2 .bform { margin:0; padding:6px 0 5px 10px; list-style: none;}
+#tovar_card2 .bform li { display:block; float:right; font: normal 11px Arial; text-align:center; padding:2px 4px; color:#dcb8a8;}
+
+
+#tovar_card2 .spec li { display:block; float:right; font: normal 11px Arial; text-align:center; padding:2px 4px; color:#1b1b1b;}
+/* Цена */
+#tovar_card2 .bform li.price { float:left; text-align:left; padding-right:20px; color:#dcb8a8;} 
+#tovar_card2 .bform li.price span  {font: bold 13px Arial; font-style:italic; color:#dcb8a8; width:142px; height:23px; padding-top:5px;}
+#tovar_card2 .bform li.price span b { font-size:20px;}
+
+
+
+#tovar_card2 .spec li.price { float:left; text-align:left; padding-right:20px; color:#1b1b1b; } 
+#tovar_card2 .spec li.price span  {font: bold 13px Arial; font-style:italic; color:#1b1b1b; width:142px; height:23px; padding-top:5px;}
+#tovar_card2 .spec li.price span b { font-size:20px;}
+/* Количество */
+#tovar_card2 .bform .number { width:24px; height:22px; background:url(col.gif) no-repeat; border: none; font: bold 13px Arial; text-align:center; color:#010101;}
+/* Купить */
+#tovar_card2 .bform li.buy {padding-top:6px;}
+#tovar_card2 .bform li.buy input{cursor:pointer; background:url(buy.gif) no-repeat left center; width:104px; height:33px; border:none; padding:0; margin:0}
+#tovar_card2 .bform li.no input{background:url(nobuy.png) no-repeat left center;}
+
+/* Детали товара */
+#tovar_detail2 { clear:both; padding-top:20px;}
+/* Анонс */
+#tovar_detail2 .descript { font-size:12px; color:#CCCCCC; padding:7px 0;}
+/* Подробное описание */
+#tovar_detail2 .full { clear:both; padding-top:7px;}
+
+
+/*============== SHOP OLD VERSION =================*/
+
+/* SHOP PRODUCT */
+
+.goods { width:233px; float:left; position:relative; margin:5px; padding-bottom:14px;}
+
+.goods img { padding:14px 0 0 7px; float:left; /*border: 1px solid #ccc;*/}
+.goods p { padding:0; margin:0;}
+
+.goods .id {  font: normal 11px Arial, Helvetica, sans-serif;  color:#666;  position:absolute;  left: 141px; top: 32px;}
+.goods .id span{ color:#999}
+
+.goods .more {  font: normal 11px Arial, Helvetica, sans-serif;  position: absolute;  left: 141px; top: 77px;}
+.goods .more a { color:#303030; text-decoration:underline;}
+.goods .more a:hover { color:#0b51bb; text-decoration:underline;} 
+
+.goods .name { padding:9px; font: bold 12px Arial, Helvetica, sans-serif; height:25px; margin:0;}
+.goods .name a { color:#0b51bb; text-decoration:underline}
+.goods .name a:hover{ color:#0b51bb; text-decoration:underline}
+
+.goods .discrip {margin:12px 9px; font: normal 11px Arial, Helvetica, sans-serif; color:#282828; height:70px; overflow:hidden; display:block}
+
+.goods form { background:url(price.jpg) center no-repeat;}
+.goods form .price{ font: bold 13px Arial, Helvetica, sans-serif; color:#010101; width:142px; height:23px; padding-top:5px; float:left; text-align:center;}
+.goods form .price b { font-size:20px;}
+
+.goods input.addtocart {cursor:pointer; background:url(addtocart.gif) no-repeat left center; width:81px; height:33px; border:none; padding:0; margin:0}
+
+/* SHOP PRODUCT lable NEW! */
+
+.goodsnew { width:233px; float:left; position:relative; margin:5px; padding-bottom:14px; background:url(new.jpg) top left no-repeat}
+
+.goodsnew img { padding:14px 0 0 7px; float:left; /*border: 1px solid #ccc;*/}
+
+.goodsnew p { padding:0; margin:0;}
+
+.goodsnew .id {  font: normal 11px Arial, Helvetica, sans-serif;  color:#666;  position:absolute;  left: 141px; top: 32px;}
+.goodsnew .id span{ color:#999}
+
+.goodsnew .more {  font: normal 11px Arial, Helvetica, sans-serif;  position: absolute;  left: 141px; top: 77px;}
+.goodsnew .more a { color:#dc1200; text-decoration:underline;}
+.goodsnew .more a:hover { color:#dc1200; text-decoration:underline;} 
+
+.goodsnew .name { padding:9px; font: bold 12px Arial, Helvetica, sans-serif; height:25px; margin:0;}
+.goodsnew .name a { color:#dc1200; text-decoration:underline} 
+.goodsnew .name a:hover{ color:#dc1200; text-decoration:underline}
+
+.goodsnew .discrip {margin:12px 9px; font: normal 11px Arial, Helvetica, sans-serif; color:#282828; height:70px; overflow:hidden; display:block}
+
+.goodsnew form { background:url(price_new.jpg) center no-repeat;}
+.goodsnew form .price{ font: bold 13px Arial, Helvetica, sans-serif; color:#fff; width:142px; height:23px; padding-top:5px; float:left; text-align:center;}
+.goodsnew form .price b { font-size:20px;}
+
+.goodsnew input.addtocart {cursor:pointer; background:url(addtocart.gif) no-repeat left center; width:81px; height:33px; border:none; padding:0; margin:0}
+
+/* Описание товара */
+
+.gdetail {width:170px; position:absolute; z-index:1000; margin:7px 20px 7px 7px; background:url(gdetail.jpg) top left no-repeat}
+.gdetail img { padding:0 23px;}
+.gdetail p { text-align:center;}
+.gdetail p b{ color:#f00;}
+
+.gdetail .number { width:24px; height:22px; background:url(col.gif) no-repeat; border: none; font: bold 13px Arial, Helvetica, sans-serif; text-align:center;}
+
+.gdetail form { padding:0; margin:0;}
+.gdetail form .detprice{ font: bold 13px Arial, Helvetica, sans-serif; color:#000; width: auto; height:23px; padding:5px 0 10px; text-align:center; background:url(detprice.gif) top center no-repeat;}
+.gdetail form .detprice b { font-size:20px;}
+.bt_add {cursor:pointer; background:url(add.gif) no-repeat left center; width:126px; height:33px; border:none; padding:0; margin:0}
+
+
+/* детали товара справа*/
+
+.detail_right {position:relative; padding: 7px 7px 7px 195px;}
+
+.detail_right h1 { font: normal 18px Arial, Helvetica, sans-serif; color:#333; padding:10px 0; margin:0;}
+
+.detail_right .id {font: normal 11px Arial, Helvetica, sans-serif; color:#666;}
+.detail_right .id span {color:#999}
+
+.detail_right .discrip {margin:20px 0px; font: normal 11px Arial, Helvetica, sans-serif; color:#282828; display:block;}
+
+/* ХЛЕБНЫЕ КРОШКИ */
+.dpath {color: #7c7c7c;  font-size: 11px; padding:5px 0;}
+.dpath a {color:#d13f32; text-decoration:underline;}
+.dpath a:hover {color:#d13f32;text-decoration:underline;}

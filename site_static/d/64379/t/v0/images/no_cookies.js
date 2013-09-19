@@ -1,0 +1,1 @@
+var no_cookies_message =  '<div style="color:#e40000; font: bold 26px Arial; border: 3px solid #333; margin: 2px; padding:15px 5px; text-align: center;">Для  корректной работы сайта необходима поддержка cookies</div>'

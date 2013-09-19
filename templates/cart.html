@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Оформить заказ</h1>
+    <div class="site-content-middle-in">
+        <div class="shop-path">
+            <b>Корзина</b> / <a href="javascript:history.go(-1)">Назад</a>
+        </div>
+        
+        <div id="cart_div">
+            <a href="/internet_magazin/order">Оформить ЗАКАЗ &raquo;</a><br /><br />
+            
+            <form method="POST" name="f" onSubimt="return false;">
+                
+                <input type="hidden" name="action" value="change_cart" />
+                
+                <table class="table_shop" onKeyUp="if(inputOnlyRealNumber(this,event))recountCart(10633);">
+                    <tr>
+                        <th>Название товара</th>
+                        <th>Цена, руб.</th>
+                        <th>Количество</th>
+                        <th>Итого, руб.</th>
+                        <th>&nbsp;</th>
+                    </tr>
+                    
+                    <tr style="background-color:transparent">
+                        <td>
+                            <a href="/internet_magazin/product/319739603">Неаполь</a>
+                            <INPUT type="hidden" name="prices[]"  value="18095.00">
+                            <INPUT type="hidden" name="product_ids[]"  value="319739603">
+                        </td>
+                        <td align="center">18 095</td>
+                        <td align="center">
+                            <INPUT type="text" name="amounts[]" value="1" style="width:35px; font-weight:bold;"> шт
+                        </td>
+                        <td align="center"><strong><span id="res_319739603">18095</span></strong></td>
+                        <td width="100px" align="center">
+                            <a style="color:#d24132; cursor: pointer;" onClick="deleteRaw(this);recountCart(10633);">Удалить</a> 
+                            <a style="color:#d24132; cursor: pointer;" onClick="deleteRaw(this);recountCart(10633);"><img src="/d/64379/t/v0/images/delete.gif" style="height:16px; width:16px; padding-left:5px;" align="absmiddle"></a>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td colspan="3" align="right">Всего на сумму:&nbsp;</td>
+                        <td align="center"><b id="total">177055</b></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                
+                </table>
+                
+                <br>
+                
+                <a href="/internet_magazin/order">Оформить ЗАКАЗ &raquo;</a>
+                <br clear="all">
+            </form>
+
+            <script>recountCart(10633);</script>
+        </div>
+    </div>
+ 
+{% endblock %}

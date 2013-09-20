@@ -23,26 +23,28 @@
                         <th>&nbsp;</th>
                     </tr>
                     
+                    {% for i in items %}
                     <tr style="background-color:transparent">
                         <td>
-                            <a href="/internet_magazin/product/319739603">Неаполь</a>
-                            <INPUT type="hidden" name="prices[]"  value="18095.00">
-                            <INPUT type="hidden" name="product_ids[]"  value="319739603">
+                            <a href="/internet_magazin/product/319739603">{{ i.item.name }}</a>
+                            <INPUT type="hidden" name="prices[]"  value="{{ i.item.price|stringformat:".f" }}.00">
+                            <INPUT type="hidden" name="product_ids[]"  value="{{ i.item.product_id }}">
                         </td>
-                        <td align="center">18 095</td>
+                        <td align="center">{{ i.item.price|stringformat:".f" }}</td>
                         <td align="center">
-                            <INPUT type="text" name="amounts[]" value="1" style="width:35px; font-weight:bold;"> шт
+                            <INPUT type="text" name="amounts[]" onchange=" recount_cart({{ i.item.id }}, $(this).val())" value="{{ i.count }}" style="width:35px; font-weight:bold;"> шт
                         </td>
-                        <td align="center"><strong><span id="res_319739603">18095</span></strong></td>
+                        <td align="center"><strong><span id="res_319739603">{{ i.sum|stringformat:".f" }}</span></strong></td>
                         <td width="100px" align="center">
-                            <a style="color:#d24132; cursor: pointer;" onClick="deleteRaw(this);recountCart(10633);">Удалить</a> 
-                            <a style="color:#d24132; cursor: pointer;" onClick="deleteRaw(this);recountCart(10633);"><img src="/d/64379/t/v0/images/delete.gif" style="height:16px; width:16px; padding-left:5px;" align="absmiddle"></a>
+                            <a style="color:#d24132; cursor: pointer;" onClick="deleteRaw(this);recountCart(10633); delete_from_cart({{ i.item.id }})">Удалить</a> 
+                            <a style="color:#d24132; cursor: pointer;" onClick="deleteRaw(this);recountCart(10633); delete_from_cart({{ i.item.id }})"><img src="/static/d/64379/t/v0/images/delete.gif" style="height:16px; width:16px; padding-left:5px;" align="absmiddle"></a>
                         </td>
                     </tr>
+                    {% endfor %}
                     
                     <tr>
                         <td colspan="3" align="right">Всего на сумму:&nbsp;</td>
-                        <td align="center"><b id="total">177055</b></td>
+                        <td align="center"><b id="total"></b></td>
                         <td>&nbsp;</td>
                     </tr>
                 

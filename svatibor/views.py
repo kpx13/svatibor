@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.core.context_processors import csrf
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
  
@@ -12,6 +12,7 @@ import config
 from livesettings import config_value
 from django.conf import settings
 from catalog.models import Category, Item
+from sessionworking import SessionCartWorking
 
 
 def get_common_context(request):
@@ -19,6 +20,8 @@ def get_common_context(request):
     c['request_url'] = request.path
     c['is_debug'] = settings.DEBUG
     c['categories'] = Category.objects.filter(parent=None).extra(order_by = ['id'])
+    c['cart_working'] = SessionCartWorking(request)
+    c['cart_count'], c['cart_sum'] = c['cart_working'].get_goods_count_and_sum(request.user)
     c.update(csrf(request))
     return c
 
@@ -34,8 +37,9 @@ def page(request, page_name):
 def home(request):
     c = get_common_context(request)
     c['request_url'] = 'home'
-    from catalog.parse import go_static
-    go_static()
+    #from catalog.parse import go_images, go_static
+    #go_static()
+    #go_images()
     #go('/home/kpx/svatibor/3.xml')    
     return render_to_response('home.html', c, context_instance=RequestContext(request))
 
@@ -68,8 +72,21 @@ def item(request, slug):
 
 def cart(request):
     c = get_common_context(request)
+    c['items'] = c['cart_working'].get_content(request.user)
     return render_to_response('cart.html', c, context_instance=RequestContext(request))
 
 def order(request):
     c = get_common_context(request)
-    return render_to_response('order.html', c, context_instance=RequestContext(request))    
+    return render_to_response('order.html', c, context_instance=RequestContext(request))
+
+def add_to_cart(request):
+    SessionCartWorking(request).add_to_cart(request.POST['id'], int(request.POST['count']))
+    return HttpResponse('')
+
+def recount_cart(request):
+    SessionCartWorking(request).recount_cart(request.POST['id'], int(request.POST['count']))
+    return HttpResponse('')
+
+def delete_from_cart(request):
+    SessionCartWorking(request).del_from_cart(request.POST['id'])
+    return HttpResponse('')    

@@ -26,6 +26,7 @@ class Item(models.Model):
         super(Item, self).save(*args, **kwargs)
         if not self.slug:
             self.slug= str(self.category.slug)+ '_' + pytils.translit.slugify(self.name) + '_' + str(self.id)
+            self.slug = self.slug[:100]
             self.save()
         
     
@@ -33,6 +34,13 @@ class Item(models.Model):
     def get_by_slug(page_name):
         try:
             return Item.objects.get(slug=page_name)
+        except:
+            return None
+        
+    @staticmethod
+    def get(id):
+        try:
+            return Item.objects.get(id=id)
         except:
             return None
 

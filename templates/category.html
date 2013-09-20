@@ -20,9 +20,14 @@
         
         {% for i in items %}
             <div class="tovar">
-                <h2><a href="/item/{{ i.slug }}/">{{ i.name }}</a></h2>
-                <a class="highslide" href="/media/{{ i.image }}" onclick="return hs.expand(this)"> 
-                    <img src="/static/images/fr_5.gif" width="180" height="160" style="background:url(/media/{{ i.image }}) 50% 50% no-repeat scroll;" alt="{{ i.name }}"/> 
+                <h2><a href="/item/{{ i.slug }}/">{{ i.name|slice:":60" }}{% if i.name|length > 60 %}... {% endif %}</a></h2>
+                    {% if i.image %}
+                        <a class="highslide" href="/media/{{ i.image }}" onclick="return hs.expand(this)"> 
+                        <img src="/static/images/fr_5.gif" width="180" height="160" style="background:url(/media/{{ i.image }}) 50% 50% no-repeat scroll;" alt="{{ i.name }}"/> 
+                    {% else %}
+                        <a class="highslide" href="/static/d/64379/t/v0/images/noimage.jpg" onclick="return hs.expand(this)"> 
+                        <img src="/static/images/fr_5.gif" width="180" height="160" style="background:url(/static/d/64379/t/v0/images/noimage.jpg) 50% 50% no-repeat scroll;" alt="{{ i.name }}"/> 
+                    {% endif %}
                 </a>  
                 
                 <ul class="param">
@@ -32,7 +37,7 @@
                 </ul>
                 <div style="clear:both;">
                     <div class="t_note"> {{ i.description }} </div>
-                    <form action="" onsubmit="return addProductForm(10633,327764403,132000.00,this,false);">
+                    <form onsubmit="add_to_cart({{ i.id }}, $(this).find('.number').val()); return addProductForm(10633,440241003,{{ i.price|stringformat:".f" }}.00,this,false);">
                         <ul class="bott">
                             <li class="buy"><input type="submit" value="" /></li>
                             <li>Кол-во:<br />

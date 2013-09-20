@@ -96,9 +96,7 @@ def go(filename):
     go_items(xmldoc)
     go_desc()
     
-FILES = ['d/64379/t/v0/images/col.gif',
-         'd/64379/t/v0/images/buy.gif',
-
+FILES = ['d/64379/t/v0/images/delete.gif',
         ]
     
 def go_static():
@@ -116,3 +114,21 @@ def go_static():
         f.close()
         print page_url
     
+def go_images():
+    BASE_URL = 'http://www.svatibor.ru/internet_magazin/product/'
+    import urllib2
+    import os
+    from bs4 import BeautifulSoup
+    for i in Item.objects.filter(image=''):
+        print BASE_URL + str(i.product_id)
+        c = urllib2.urlopen(BASE_URL + str(i.product_id))
+        soup = BeautifulSoup(c.read())
+        image = 'http://www.svatibor.ru' + soup.findAll('div', attrs={'id' : 'tovar_card'})[0].findAll('a')[0]['href']
+        if image.endswith('.png'):
+            f = open('media/uploads/items/%s.png' % i.id,'wb')
+            f.write(urllib2.urlopen(image).read())
+            f.close()
+            i.image = 'uploads/items/%s.png' % i.id
+        else:
+            print image
+        i.save()

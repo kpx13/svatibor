@@ -19,7 +19,7 @@
 
 <script type='text/javascript' src='/static/shared/highslide-4.1.13/highslide.packed.js'></script>
 <script type='text/javascript'>
-hs.graphicsDir = 'http://www.svatibor.ru/shared/highslide-4.1.13/graphics/';
+hs.graphicsDir = '/static/shared/highslide-4.1.13/graphics/';
 hs.outlineType = null;
 hs.showCredits = false;
 hs.lang={cssDirection:'ltr',loadingText:'Загрузка...',loadingTitle:'Кликните чтобы отменить',focusTitle:'Нажмите чтобы перенести вперёд',fullExpandTitle:'Увеличить',fullExpandText:'Полноэкранный',previousText:'Предыдущий',previousTitle:'Назад (стрелка влево)',nextText:'Далее',nextTitle:'Далее (стрелка вправо)',moveTitle:'Передвинуть',moveText:'Передвинуть',closeText:'Закрыть',closeTitle:'Закрыть (Esc)',resizeTitle:'Восстановить размер',playText:'Слайд-шоу',playTitle:'Слайд-шоу (пробел)',pauseText:'Пауза',pauseTitle:'Приостановить слайд-шоу (пробел)',number:'Изображение %1/%2',restoreTitle:'Нажмите чтобы посмотреть картинку, используйте мышь для перетаскивания. Используйте клавиши вперёд и назад'};</script>
@@ -53,7 +53,31 @@ widgets.addOnloadEvent(function() {
 
 <link href="/static/d/64379/t/v0/images/styles_shop.css" rel="stylesheet"  type="text/css" />
 
-
+<script>
+    function add_to_cart(id, count){
+        $.post("/ajax/add_to_cart/", { 
+            id: id,
+            count: count,
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+        })
+    }
+    
+    function recount_cart(id, count){
+        console.log(id+ " - " + count);
+        $.post("/ajax/recount_cart/", { 
+            id: id,
+            count: count,
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+        })
+    }
+    
+    function delete_from_cart(id){
+        $.post("/ajax/delete_from_cart/", { 
+            id: id,
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+        })
+    }
+</script>
 
 <script type="text/javascript">    
     hs.captionId = 'the-caption';
@@ -71,8 +95,8 @@ widgets.addOnloadEvent(function() {
             <div class="site-header">
             
                 <div id="cart">
-                    <div class="tov">Товаров <span id="cart_total_amount">2</span> на сумму:</div>
-                    <div class="sum"><span id="cart_total">150 095</span> руб.</div>
+                    <div class="tov">Товаров <span id="cart_total_amount">{{ cart_count }}</span> на сумму:</div>
+                    <div class="sum"><span id="cart_total">{{ cart_sum }}</span> руб.</div>
                     <div class="zak"><a href="/cart/">Оформить заказ »</a></div>
                     <div class="added-to-cart" id="shop-added">Добавлено в корзину</div>
                 </div>   

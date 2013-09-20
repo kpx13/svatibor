@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Оформить заказ</h1>
+    <div class="site-content-middle-in">
+        
+        
+        <div id="cart_div">
+            
+            <form>
+                
+                <table class="table_shop" >
+                    <tr>
+                        <th>Название товара</th>
+                        <th>Цена, руб.</th>
+                        <th>Количество</th>
+                        <th>Итого, руб.</th>
+                    </tr>
+                    
+                    {% for i in items %}
+                    <tr style="background-color:transparent">
+                        <td>
+                            <a href="/item/{{ i.item.slug }}">{{ i.item.name }}</a>
+                        </td>
+                        <td align="center">{{ i.item.price|stringformat:".f" }}</td>
+                        <td align="center">
+                            {{ i.count }}
+                        </td>
+                        <td align="center"><strong><span id="res_319739603">{{ i.sum|stringformat:".f" }}</span></strong></td>
+                       
+                    </tr>
+                    {% endfor %}
+                    
+                    <tr>
+                        <td colspan="3" align="right">Всего на сумму:&nbsp;</td>
+                        <td align="center"><b id="total">{{ cart_sum|stringformat:".f" }}</b></td>
+                        <td>&nbsp;</td>
+                    </tr>
+                
+                </table>
+                
+                <br>
+        
+            </form>
+            
+            <style>
+                #orderForm input[type='text'] {width: 100%}
+                #orderForm .errorlist li{color: red; list-style: none; padding: 0; margin: 0}
+                #orderForm .errorlist {padding: 0; margin: 0}
+            </style>
+            
+            <form method="POST" id="orderForm">
+                <input type="hidden" name="shop_id" value="" />
+                <input type="hidden" name="order_id" value="" />
+                <input type="hidden" name="mode" value="order" />
+                <table>
+                    {{ form }}
+                    <tr><td></td><td><input type="submit" value="Отправить заказ" style='float: right'></td></tr>
+                </table>
+                {% csrf_token %}
+                
+            </form>
+
+            <script>recountCart(10633);</script>
+        </div>
+    </div>
+ 
+{% endblock %}

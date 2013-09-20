@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from models import Cart, Order
+from models import Order, OrderContent
 
-class CartAdmin(admin.ModelAdmin):
-    list_display = ('user', 'item', 'count', 'date')
-    search_fields = ('item', )
+class ContentInline(admin.TabularInline): 
+    list_display = ('item', 'count')
+    model = OrderContent
+    extra = 5
     
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('user', 'date')
-    search_fields = ('user', )
+    inlines = [ ContentInline, ]
+    list_display = ('date', )
 
-admin.site.register(Cart, CartAdmin)
 admin.site.register(Order, OrderAdmin)

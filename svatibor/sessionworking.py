@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from catalog.models import Item
-from shop.models import Cart, Order
 
 class SessionCartWorking(object):
     def __init__(self, request):
@@ -19,7 +18,7 @@ class SessionCartWorking(object):
     def del_from_cart(self, item):
         del self.__request.session[self.var(item)]
 
-    def get_content(self, cap):
+    def get_content(self):
         res = []
         for i in self.__request.session.keys():
             if i.startswith('cart_'):
@@ -37,14 +36,13 @@ class SessionCartWorking(object):
                 item = Item.get(int(i[5:]))
                 count = int(self.__request.session[i])
                 res.append({'item': item,
-                     'count': count,
-                     'sum': item.price*count})
+                     'count': count})
                 
                 del self.__request.session[i]
         return res
     
-    def get_goods_count_and_sum(self, cap):
-        cart = self.get_content(cap)
+    def get_goods_count_and_sum(self):
+        cart = self.get_content()
         return (sum([x['count'] for x in cart]), sum([x['count'] * x['item'].price for x in cart]))
     
     def count_plus(self, cap, item):

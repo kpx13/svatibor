@@ -13,6 +13,7 @@ from livesettings import config_value
 from django.conf import settings
 from catalog.models import Category, Item
 from sessionworking import SessionCartWorking
+from shop.forms import OrderForm
 
 
 def get_common_context(request):
@@ -21,7 +22,7 @@ def get_common_context(request):
     c['is_debug'] = settings.DEBUG
     c['categories'] = Category.objects.filter(parent=None).extra(order_by = ['id'])
     c['cart_working'] = SessionCartWorking(request)
-    c['cart_count'], c['cart_sum'] = c['cart_working'].get_goods_count_and_sum(request.user)
+    c['cart_count'], c['cart_sum'] = c['cart_working'].get_goods_count_and_sum()
     c.update(csrf(request))
     return c
 
@@ -72,11 +73,23 @@ def item(request, slug):
 
 def cart(request):
     c = get_common_context(request)
-    c['items'] = c['cart_working'].get_content(request.user)
+    c['items'] = c['cart_working'].get_content()
     return render_to_response('cart.html', c, context_instance=RequestContext(request))
 
 def order(request):
     c = get_common_context(request)
+    c['items'] = c['cart_working'].get_content()
+    if request.method == 'GET':
+        c['form'] = OrderForm()
+    else:
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            order = form.save(request=request)
+            c['order'] = order
+            print '***', order.id
+            return render_to_response('order_ok.html', c, context_instance=RequestContext(request))
+        else:
+            c['form'] = form
     return render_to_response('order.html', c, context_instance=RequestContext(request))
 
 def add_to_cart(request):

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Оформить заказ</h1>
+    <div class="site-content-middle-in">
+        Ваш заказ принят. Спасибо за сотрудничество!
+        <br><br>
+
+        <SCRIPT src="http://oml.ru/shared/s3/js/print.js"></SCRIPT>
+
+        <input type="button" onClick="printContent('printMe');" value="Распечатать бланк заказа">
+
+        <br><br>
+
+        <div id="printMe" style="border:5px solid #e0e0e0; padding:10px; background-color:none;">
+            <b>Ваш заказ №{{ order.id }} от {{ order.date }}</b><br><br> 
+            <b>Имя:</b> {{ order.name }}<br>    
+            <b>Телефон:</b> {{ order.phone }}<br>  
+            <b>Email:</b> {{ order.email }}<br>    
+            <b>Дополнительно:</b> {{ order.add_info }} <br>
+            <br>
+
+            <b>Содержание заказа:</b>
+            <br><br>
+
+            <table border=1 cellspacing=0 cellpadding=5 style="font-size:11px;">
+                <tr>
+                    <td><b>Название</b></td>
+                    <td><b>Товар, руб.</b></td>
+                    <td><b>Количество</b></td>
+                </tr>
+                {% for c in order.content.all %}
+                    <tr>
+                        <td>{{ c.item.name }}</td>
+                        <td>{{ c.item.price }} (за шт)</td>
+                        <td>{{ c.count }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <br>
+            <b>Всего на сумму:</b> {{ order.get_sum }} руб.
+            </div>
+        </div>
+    </div>
+ 
+{% endblock %}

@@ -8,7 +8,7 @@
         </div>
         
         <div id="cart_div">
-            <a href="/internet_magazin/order">Оформить ЗАКАЗ &raquo;</a><br /><br />
+            <a href="/order/">Оформить ЗАКАЗ &raquo;</a><br /><br />
             
             <form method="POST" name="f" onSubimt="return false;">
                 
@@ -26,7 +26,7 @@
                     {% for i in items %}
                     <tr style="background-color:transparent">
                         <td>
-                            <a href="/internet_magazin/product/319739603">{{ i.item.name }}</a>
+                            <a href="/item/{{ i.item.slug }}">{{ i.item.name }}</a>
                             <INPUT type="hidden" name="prices[]"  value="{{ i.item.price|stringformat:".f" }}.00">
                             <INPUT type="hidden" name="product_ids[]"  value="{{ i.item.product_id }}">
                         </td>
@@ -52,7 +52,7 @@
                 
                 <br>
                 
-                <a href="/internet_magazin/order">Оформить ЗАКАЗ &raquo;</a>
+                <a href="/order/">Оформить ЗАКАЗ &raquo;</a>
                 <br clear="all">
             </form>
 

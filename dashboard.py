@@ -43,7 +43,7 @@ class CustomIndexDashboard(Dashboard):
         
         self.children.append(
             modules.ModelList(
-                title = u'Страницы.',
+                title = u'Страницы',
                 models=(
                     'pages.models.Page',
                 ),
@@ -53,11 +53,11 @@ class CustomIndexDashboard(Dashboard):
         
         self.children.append(
             modules.ModelList(
-                title = u'Прайс',
+                title = u'КаталОг',
                 models=(
-                    'price.models.Category',
-                    'price.models.SubCategory',
-                    'price.models.Item',
+                    'catalog.category.Category',
+                    'catalog.producer.Producer',
+                    'catalog.item.Item',
                 ),
             )
         )
@@ -67,16 +67,17 @@ class CustomIndexDashboard(Dashboard):
             modules.ModelList(
                 title = u'Заказы',
                 models=(
-                    'order.models.Order',
+                    'shop.models.Order',
                 ),
             )
         )
         
         self.children.append(
             modules.ModelList(
-                title = u'Обратная связь',
+                title = u'Галерея',
                 models=(
-                    'feedback.models.Request',
+                    'gallery.models.Category',
+                    'gallery.models.Photo',
                 ),
             )
         )

@@ -145,3 +145,33 @@ def go_images():
         else:
             print image
         i.save()
+
+GALLERY = [(1, 'http://www.svatibor.ru/nashi-vystavki/album/411603'),
+           (2, 'http://www.svatibor.ru/nashi-vystavki/album/411803'),
+           (3, 'http://www.svatibor.ru/nashi-vystavki/album/412003'),
+           (4, 'http://www.svatibor.ru/nashi-vystavki/album/500803'),
+           (5, 'http://www.svatibor.ru/nashi-vystavki/album/501003')
+           ]
+
+def go_gallery():
+    import urllib2
+    from bs4 import BeautifulSoup
+    from gallery.models import Category as Album
+    from gallery.models import Photo
+    for album, url in GALLERY:
+        cat = Album.objects.get(id=album)
+        c = urllib2.urlopen(url)
+        soup = BeautifulSoup(c.read())
+        table = soup.findAll('table', attrs={'class' : 'gallery2_album_photos'})[0]
+        for td in table.findAll('td'):
+            img = td.findAll('img')[0]
+            image = 'http://www.svatibor.ru' + td.findAll('a')[0]['href']
+            filepath = 'uploads/gallery/%s' % image.split('/')[-1]
+            f = open('media/%s' % filepath, 'wb')
+            f.write(urllib2.urlopen(image).read())
+            f.close()
+            Photo(category=cat,
+                  name=img['alt'],
+                  image=filepath).save()
+            print img['alt'] 
+        

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% block title %} Галерея {% endblock %}
+
+{% block content %}
+    <h1>ФОТОГАЛЕРЕЯ</h1>
+    
+    <div class="site-content-middle-in">
+
+    <style>
+        .gallery2_albums td, .gallery2_album_photos td { padding: 10px; text-align: center; font: normal 11px Arial, sans-serif; overflow: hidden;}
+        .gallery2_albums a.image, .gallery2_albums a.noAlbumCover { width: 100px; height: 100px; line-height: 100px;}
+        a.albumPhoto{ width: 100px; height: 100px; line-height: 100px; }
+        a.albumItem{ -moz-transition: all 0.3s ease-in-out 0s; text-align: center; color: #333; font-size: 11px; padding: 10px; border: 1px solid #ccc; cursor: pointer; margin-bottom: 5px; background: #fff; display: block;}
+        a.albumItem:hover{ border-color: #AAAAAA;box-shadow: 0 0 2px #336699;}
+        .albumPhotosCount{ height: 16px; line-height: 16px;}
+        .albumCreated, .albumModified{ font-size: 10px; }
+    </style>
+    
+    <table class="gallery2_albums" cellspacing="0" cellpadding="0" border="0">
+        <tr>
+            {% for a in gallery %}
+            
+            <td align="center" valign="top" class="image" id="gallery_album_411603" width="100">
+                {% thumbnail a.photos.all.0.image "x110" as im %}
+                <a href="/gallery/{{ a.slug }}/">
+                    <img alt="{{ a.name|safe }}" src="{{ im.url }}">
+                </a>
+                {% endthumbnail %}
+
+                <div style="overflow: hidden; width: 120px;">
+                    <a href="/gallery/{{ a.slug }}/">
+                        <strong> {{ a.name }}</strong>
+                    </a>
+                </div>
+            </td>
+            {% endfor %}
+            
+        </tr>
+    </table>
+ 
+{% endblock %}

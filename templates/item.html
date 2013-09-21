@@ -16,12 +16,18 @@
         <h2 class="shop-product-title">{{ item.name }}</h2>
 
         <div id="tovar_card"> 
-                        {% thumbnail item.image "x150" as im %}
-                            <a class="highslide" href="/media/{{ item.image }}" onclick="return hs.expand(this)"> 
-                                <img src="/static/images/fr_5.gif" width="180" height="160" style="background:url({{ im.url }})
-                        50% 50% no-repeat scroll;" alt="{{ item.name }}"/> 
-                            </a>
-                        {% endthumbnail %}
+            {% if item.image %}
+                {% thumbnail item.image "x150" as im %}
+                    <a class="highslide" href="/media/{{ item.image }}" onclick="return hs.expand(this)"> 
+                        <img src="/static/images/fr_5.gif" width="180" height="160" style="background:url({{ im.url }})
+                50% 50% no-repeat scroll;" alt="{{ item.name }}"/> 
+                    </a>
+                {% endthumbnail %}
+            {% else %}
+                <a class="highslide" href="/static/d/64379/t/v0/images/noimage.jpg" onclick="return hs.expand(this)"> 
+                    <img src="/static/images/fr_5.gif" width="180" height="160" style="background:url(/static/d/64379/t/v0/images/noimage.jpg) 50% 50% no-repeat scroll;" alt="{{ i.name }}"/> 
+                </a>
+            {% endif %}
             
             <div style="display:block; height:70px">
                 {% if item.is_novelty %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{% block title %} Галерея {% endblock %}
+
+{% block content %}
+    <h1>ФОТОГАЛЕРЕЯ</h1>
+    
+    <div class="site-content-middle-in">
+    
+            {% for a in album %}
+            <div valign="top" class="image" id="gallery_album_411603" style='height: 150px; float: left; margin: 5px'>
+
+                {% thumbnail a.image "x110" as im %}
+                <a href="/media/{{ a.image }}" onclick="return hs.expand(this)">
+                    <img alt="{{ a.name|safe }}" src="{{ im.url }}">
+                </a>
+                {% endthumbnail %}
+                
+                <div style="">
+                    <strong> {{ a.name|safe }}</strong>
+                </div>
+            </div>
+            {% endfor %}
+    </div>
+    
+ 
+{% endblock %}

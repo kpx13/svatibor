@@ -9,6 +9,6 @@ class PhotoInline(admin.TabularInline):
     
 class CategoryAdmin(admin.ModelAdmin):
     inlines = [ PhotoInline, ]
-    list_display = ('title', )
+    list_display = ('name', )
 
 admin.site.register(Category, CategoryAdmin)

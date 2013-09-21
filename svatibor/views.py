@@ -14,6 +14,9 @@ from django.conf import settings
 from catalog.models import Category, Item, Producer
 from sessionworking import SessionCartWorking
 from shop.forms import OrderForm
+from gallery.models import Category as Album
+from gallery.models import Photo
+from catalog.parse import go_gallery
 
 
 def get_common_context(request):
@@ -38,8 +41,8 @@ def page(request, page_name):
 def home(request):
     c = get_common_context(request)
     c['request_url'] = 'home'
-    from catalog.parse import go_images, go_static
-    go_static()
+    #from catalog.parse import *
+    #go_gallery()
     #go_images()
     #go('/home/kpx/svatibor/3.xml')    
     return render_to_response('home.html', c, context_instance=RequestContext(request))
@@ -55,7 +58,7 @@ def category(request, slug):
     breadcrumbs.reverse()
     c['titles'] = breadcrumbs[:-1]
     c['items'] = Item.objects.filter(category=c['category'])
-    return render_to_response('category.html', c, context_instance=RequestContext(request))
+    return render_to_response('category.html', c, context_instance=RequestContext(request))    
 
 def vendor(request, slug):
     c = get_common_context(request)
@@ -110,3 +113,30 @@ def recount_cart(request):
 def delete_from_cart(request):
     SessionCartWorking(request).del_from_cart(request.POST['id'])
     return HttpResponse('')    
+
+def gallery(request):
+    c = get_common_context(request)
+    c['gallery'] = Album.objects.all()
+    return render_to_response('gallery.html', c, context_instance=RequestContext(request))
+
+def gallery_in(request, slug):
+    c = get_common_context(request)
+    c['album'] = Photo.objects.filter(category=Album.get_by_slug(slug))
+    return render_to_response('gallery_in.html', c, context_instance=RequestContext(request))
+
+def category_old(request, folder_id):
+    cat = Category.objects.filter(folder_id=folder_id)
+    if len(cat) > 0:
+        return HttpResponseRedirect('/category/%s' % cat[0].slug)
+    else:
+        return HttpResponseRedirect('/')
+
+def item_old(request, product_id):
+    item = Item.objects.filter(product_id=product_id)
+    if len(item) > 0:
+        return HttpResponseRedirect('/item/%s' % item[0].slug)
+    else:
+        return HttpResponseRedirect('/')
+    
+def page_old(request, page_name):
+    return HttpResponseRedirect('/%s/' % page_name)

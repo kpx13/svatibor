@@ -26,6 +26,7 @@ urlpatterns = patterns('',
     url(r'^ajax/recount_cart/$', views.recount_cart),
     url(r'^ajax/delete_from_cart/$', views.delete_from_cart),
     url(r'^category/(?P<slug>[\w-]+)/$', views.category),
+    url(r'^vendor/(?P<slug>[\w-]+)/$', views.vendor),
     url(r'^item/(?P<slug>[\w-]+)/$', views.item),
     url(r'^(?P<page_name>[\w-]+)/$' , views.page),
 )

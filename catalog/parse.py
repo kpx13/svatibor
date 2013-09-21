@@ -96,7 +96,20 @@ def go(filename):
     go_items(xmldoc)
     go_desc()
     
-FILES = ['d/64379/t/v0/images/delete.gif',
+FILES = ['d/64379/d/rules-logo_1.jpg',
+         'd/64379/d/rules-pic.jpg',
+         'd/64379/d/vika-logo_1.jpg',
+         'd/64379/d/vika-pic.jpg',
+         'd/64379/d/onix-logo_1.jpg',
+         'd/64379/d/onix-pic.jpg',
+         'd/64379/d/top-logo_1.jpg',
+         'd/64379/d/top-pic.jpg',
+         'd/64379/d/arch-logo.jpg',
+         'd/64379/d/arch-pic.jpg',
+         'd/64379/d/sillur-logo.jpg',
+         'd/64379/d/sillur-pic.jpg',
+         'd/64379/d/hart-logo.jpg',
+         'd/64379/d/harct-pic.jpg',
         ]
     
 def go_static():

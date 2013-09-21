@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load thumbnail %}
+{% block title %} {{ category.name }} {% endblock %}
 
 {% block content %}
     <h1>Оформить заказ</h1>
@@ -22,17 +24,25 @@
             <div class="tovar">
                 <h2><a href="/item/{{ i.slug }}/">{{ i.name|slice:":60" }}{% if i.name|length > 60 %}... {% endif %}</a></h2>
                     {% if i.image %}
-                        <a class="highslide" href="/media/{{ i.image }}" onclick="return hs.expand(this)"> 
-                        <img src="/static/images/fr_5.gif" width="180" height="160" style="background:url(/media/{{ i.image }}) 50% 50% no-repeat scroll;" alt="{{ i.name }}"/> 
+                        {% thumbnail i.image "x150" as im %}
+                            <a class="highslide" href="/media/{{ i.image }}" onclick="return hs.expand(this)"> 
+                                <img src="/static/images/fr_5.gif" width="180" height="160" style="background:url({{ im.url }})
+                        50% 50% no-repeat scroll;" alt="{{ i.name }}"/> 
+                            </a>
+                        {% endthumbnail %}
                     {% else %}
                         <a class="highslide" href="/static/d/64379/t/v0/images/noimage.jpg" onclick="return hs.expand(this)"> 
-                        <img src="/static/images/fr_5.gif" width="180" height="160" style="background:url(/static/d/64379/t/v0/images/noimage.jpg) 50% 50% no-repeat scroll;" alt="{{ i.name }}"/> 
+                            <img src="/static/images/fr_5.gif" width="180" height="160" style="background:url(/static/d/64379/t/v0/images/noimage.jpg) 50% 50% no-repeat scroll;" alt="{{ i.name }}"/> 
+                        </a>
                     {% endif %}
-                </a>  
+                  
                 
                 <ul class="param">
+                    {% if i.is_novelty %}
+                        <li class="new">Новинка!</li>
+                    {% endif %}
                     <li class="art">Артикул: <span>{{ i.art }}</span></li>
-                    <li class="vendor">Производитель: <span><a href="#">{{ i.producer.name }}</a></span></li>
+                    <li class="vendor">Производитель: <span><a href="/vendor/{{ i.producer.slug }}/">{{ i.producer.name }}</a></span></li>
                     <li class="vendor"><a href="/item/{{ i.slug }}/">Подробнее &raquo;</a></li>
                 </ul>
                 <div style="clear:both;">
@@ -47,7 +57,8 @@
                             <span><b>{{ i.price }}</b> руб.</span></li>
                         </ul>
                     </form>
-                </div>  
+                </div>
+  
             </div>
         {% endfor %}
 

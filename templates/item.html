@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load thumbnail %}
+{% block title %} {{ item.name }} {% endblock %}
 
 {% block content %}
     <h1>Оформить заказ</h1>
@@ -14,9 +16,12 @@
         <h2 class="shop-product-title">{{ item.name }}</h2>
 
         <div id="tovar_card"> 
-            <a class="highslide" href="/media/{{ item.image }}" onclick="return hs.expand(this)"> 
-                <img src="/static/images/fr_5.gif" width="180" height="160" scrolls="/media/{{ item.image }}" style="background:url(/media/{{ item.image }}) 50% 50% no-repeat scroll;" alt="Accento венге медио"/> 
-            </a>        
+                        {% thumbnail item.image "x150" as im %}
+                            <a class="highslide" href="/media/{{ item.image }}" onclick="return hs.expand(this)"> 
+                                <img src="/static/images/fr_5.gif" width="180" height="160" style="background:url({{ im.url }})
+                        50% 50% no-repeat scroll;" alt="{{ item.name }}"/> 
+                            </a>
+                        {% endthumbnail %}
             
             <div style="display:block; height:70px">
                 {% if item.is_novelty %}
@@ -27,7 +32,7 @@
                 
                 <ul id="p_list">
                     <li>Артикул: <span>{{ item.art }}</span></li>
-                    <li>Производитель: <a href="#">{{ item.producer.name }}</a></li>
+                    <li>Производитель: <a href="/vendor/{{ item.producer.slug }}/">{{ item.producer.name }}</a></li>
                 </ul>
             </div>
         

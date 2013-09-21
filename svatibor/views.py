@@ -11,7 +11,7 @@ from pages.models import Page
 import config
 from livesettings import config_value
 from django.conf import settings
-from catalog.models import Category, Item
+from catalog.models import Category, Item, Producer
 from sessionworking import SessionCartWorking
 from shop.forms import OrderForm
 
@@ -38,8 +38,8 @@ def page(request, page_name):
 def home(request):
     c = get_common_context(request)
     c['request_url'] = 'home'
-    #from catalog.parse import go_images, go_static
-    #go_static()
+    from catalog.parse import go_images, go_static
+    go_static()
     #go_images()
     #go('/home/kpx/svatibor/3.xml')    
     return render_to_response('home.html', c, context_instance=RequestContext(request))
@@ -55,6 +55,13 @@ def category(request, slug):
     breadcrumbs.reverse()
     c['titles'] = breadcrumbs[:-1]
     c['items'] = Item.objects.filter(category=c['category'])
+    return render_to_response('category.html', c, context_instance=RequestContext(request))
+
+def vendor(request, slug):
+    c = get_common_context(request)
+    c['category'] = Producer.get_by_slug(slug)
+    c['titles'] = []
+    c['items'] = Item.objects.filter(producer=c['category'])
     return render_to_response('category.html', c, context_instance=RequestContext(request))
 
 def item(request, slug):

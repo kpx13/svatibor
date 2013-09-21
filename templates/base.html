@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="description" content="Главная" />
 <meta name="keywords" content="Главная" />
-<title>Главная</title>
+<title>Дверная тема | {% block title %} Главная {% endblock %}</title>
 <link href="/static/d/64379/t/v0/images/styles.css" rel="stylesheet" type="text/css" />
 
 <link rel='stylesheet' type='text/css' href='/static/shared/highslide-4.1.13/highslide.min.css'/>
@@ -106,24 +106,24 @@ widgets.addOnloadEvent(function() {
                     <table class="mid-tab">
                       <tr>
                         <td class="mid-td3">&nbsp;</td>
-                        <td class="mid-td2"><a href="/static/akcii-i-skidki"><img src="/static/d/64379/t/v0/images/top-pic1.png" alt="" /></a></td>
+                        <td class="mid-td2"><a href="/akcii-i-skidki"><img src="/static/d/64379/t/v0/images/top-pic1.png" alt="" /></a></td>
                         <td class="mid-td1">&nbsp;</td>
-                        <td class="mid-td2"><a href="/static/novinki"><img src="/static/d/64379/t/v0/images/top-pic2.png" alt="" /></a></td>
+                        <td class="mid-td2"><a href="/category/9_premio-new/"><img src="/static/d/64379/t/v0/images/top-pic2.png" alt="" /></a></td>
                         <td class="mid-td1">&nbsp;</td>
-                        <td class="mid-td4"><a href="/static/magaziny1"><img src="/static/d/64379/t/v0/images/top-pic3.png" alt="" /></a></td>
+                        <td class="mid-td4"><a href="/magaziny1"><img src="/static/d/64379/t/v0/images/top-pic3.png" alt="" /></a></td>
                       </tr>
                     </table>
         </div>
                 <ul class="menu-top">
-                                    <li  class="current" ><a href="/static/" >Главная</a></li>
-                                    <li ><a href="/static/about" >О компании</a></li>
-                                    <li ><a href="/static/dostavka" >Доставка</a></li>
-                                    <li ><a href="/static/stroitelyam_i_dizayneram" >Строителям и дизайнерам</a></li>
-                                    <li ><a href="/static/ustanovka,_zamer_i_dostavka" >Служба сервиса</a></li>
-                                    <li ><a href="/static/contacts" >Контакты</a></li>
-                                    <li ><a href="/static/news" >Новости</a></li>
-                                    <li ><a href="/static/nashi-vystavki" >ФОТОГАЛЕРЕЯ</a></li>
-                                    <li ><a href="/static/rasprodazha" >РАСПРОДАЖА</a></li>
+                                    <li {% if 'home' in request_url %} class="current" {% endif %}><a href="/" >Главная</a></li>
+                                    <li {% if 'about' in request_url %} class="current" {% endif %} ><a href="/about" >О компании</a></li>
+                                    <li {% if 'dostavka' in request_url %}{% if 'ustanovka' not in request_url %} class="current" {% endif %}{% endif %} ><a href="/dostavka" >Доставка</a></li>
+                                    <li {% if 'stroitelyam_i_dizayneram' in request_url %} class="current" {% endif %} ><a href="/stroitelyam_i_dizayneram" >Строителям и дизайнерам</a></li>
+                                    <li {% if 'ustanovka_zamer_i_dostavka' in request_url %} class="current" {% endif %} ><a href="/ustanovka_zamer_i_dostavka" >Служба сервиса</a></li>
+                                    <li {% if 'contacts' in request_url %} class="current" {% endif %} ><a href="/contacts" >Контакты</a></li>
+                                    <li {% if 'news' in request_url %} class="current" {% endif %} ><a href="/news" >Новости</a></li>
+                                    <li {% if 'nashi-vystavki' in request_url %} class="current" {% endif %} ><a href="/nashi-vystavki" >ФОТОГАЛЕРЕЯ</a></li>
+                                    <li {% if 'rasprodazha' in request_url %} class="current" {% endif %} ><a href="/rasprodazha" >РАСПРОДАЖА</a></li>
                                 </ul>
             </div>
             <div class="site-content-wrap">

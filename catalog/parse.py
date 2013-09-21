@@ -45,7 +45,6 @@ def go_categories(xmldoc):
 def go_items(xmldoc):
     itemlist = xmldoc.getElementsByTagName('offer') 
     for s in itemlist :
-
         product_id = s.attributes['id'].value
         price = s.getElementsByTagName('price')[0].childNodes[0].nodeValue
         name = s.getElementsByTagName('name')[0].childNodes[0].nodeValue
@@ -84,7 +83,11 @@ def go_desc():
             f.write(urllib2.urlopen(image).read())
             f.close()
             i.image = 'uploads/items/%s.jpg' % i.id
-        else:
+        elif image.endswith('.png'):
+            f = open('media/uploads/items/%s.png' % i.id,'wb')
+            f.write(urllib2.urlopen(image).read())
+            f.close()
+            i.image = 'uploads/items/%s.png' % i.id
             print image
         i.save()
         
@@ -142,9 +145,10 @@ def go_images():
             f.write(urllib2.urlopen(image).read())
             f.close()
             i.image = 'uploads/items/%s.png' % i.id
+            i.save()
         else:
             print image
-        i.save()
+        
 
 GALLERY = [(1, 'http://www.svatibor.ru/nashi-vystavki/album/411603'),
            (2, 'http://www.svatibor.ru/nashi-vystavki/album/411803'),

@@ -16,7 +16,7 @@ from sessionworking import SessionCartWorking
 from shop.forms import OrderForm
 from gallery.models import Category as Album
 from gallery.models import Photo
-from catalog.parse import go_gallery
+from catalog.parse import go_gallery, go_items
 
 
 def get_common_context(request):
@@ -40,11 +40,7 @@ def page(request, page_name):
 
 def home(request):
     c = get_common_context(request)
-    c['request_url'] = 'home'
-    #from catalog.parse import *
-    #go_gallery()
-    #go_images()
-    #go('/home/kpx/svatibor/3.xml')    
+    c['request_url'] = 'home'    
     return render_to_response('home.html', c, context_instance=RequestContext(request))
 
 def category(request, slug):

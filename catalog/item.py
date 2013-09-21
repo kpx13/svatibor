@@ -11,7 +11,7 @@ class Item(models.Model):
     category = models.ForeignKey(Category, verbose_name=u'категория')
     producer = models.ForeignKey(Producer, blank=True, verbose_name=u'производитель')
     name = models.CharField(max_length=512, verbose_name=u'название')
-    art = models.CharField(max_length=16, blank=True, verbose_name=u'артикул')
+    art = models.CharField(max_length=50, blank=True, verbose_name=u'артикул')
     price = models.FloatField(verbose_name=u'цена')
     image = models.ImageField(upload_to='uploads/items', max_length=256, blank=True, verbose_name=u'изображение')
     description = models.TextField(default=u'', verbose_name=u'описание короткое')

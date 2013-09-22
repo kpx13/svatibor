@@ -167,7 +167,6 @@ EMAIL_HOST_PASSWORD = 'noreply13'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-EMAIL_SEND_TO = 'anna@webgenesis.ru'
 
 try:
     from dev import *

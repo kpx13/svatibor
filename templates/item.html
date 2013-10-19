@@ -8,7 +8,7 @@
         <div class="shop-path">
             <a href="#">Оформить заказ</a> &raquo; 
             {% for t in titles %}
-                <a href="/category/{{ t.slug }}/">{{ t.name }}</a> &raquo; 
+                <a href="/{{ t.slug }}/">{{ t.name }}</a> &raquo; 
             {% endfor %}
             
         </div>
@@ -72,7 +72,7 @@
             
             <br />
             {% for t in titles %}
-                <a href="/category/{{ t.slug }}/">{{ t.name }}</a> |
+                <a href="/{{ t.slug }}/">{{ t.name }}</a> |
             {% endfor %}
             
             <p><a href="javascript:history.go(-1)">&laquo; Назад</a></p>

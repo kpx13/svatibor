@@ -21,7 +21,7 @@ class Category(models.Model):
     
     class Meta:
         verbose_name = u'альбом'
-        verbose_name_plural = u'галлерея'
+        verbose_name_plural = u'галерея'
     
     def __unicode__(self):
         return self.name

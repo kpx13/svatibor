@@ -29,7 +29,7 @@ def get_common_context(request):
     c.update(csrf(request))
     return c
 
-def page(request, page_name):
+def page_page(request, page_name):
     c = get_common_context(request)
     p = Page.get_by_slug(page_name)
     if p:
@@ -47,6 +47,10 @@ def home(request):
 def category(request, slug):
     c = get_common_context(request)
     c['category'] = Category.get_by_slug(slug)
+    if not c['category']:
+        print '^^^^^^^'
+        return page_page(request, slug)
+    print '(((((((('
     page = c['category']
     breadcrumbs = []
     while page:

@@ -25,7 +25,8 @@ urlpatterns = patterns('',
     url(r'^ajax/add_to_cart/$', views.add_to_cart),
     url(r'^ajax/recount_cart/$', views.recount_cart),
     url(r'^ajax/delete_from_cart/$', views.delete_from_cart),
-    url(r'^category/(?P<slug>[\w-]+)/$', views.category),
+    url(r'^category/(?P<slug>[\w/-]+)/$', views.category),
+    
     url(r'^vendor/(?P<slug>[\w-]+)/$', views.vendor),
     url(r'^item/(?P<slug>[\w-]+)/$', views.item),
     url(r'^gallery/$', views.gallery),
@@ -37,4 +38,5 @@ urlpatterns = patterns('',
     url(r'^internet_magazin/(?P<page_name>[\w-]+)/$', views.page_old),
     
     url(r'^(?P<page_name>[\w-]+)/$' , views.page),
+    url(r'^(?P<slug>[\w/-]+)/$', views.category),
 )

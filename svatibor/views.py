@@ -41,6 +41,7 @@ def page(request, page_name):
 def home(request):
     c = get_common_context(request)
     c['request_url'] = 'home'    
+    #[cat.reset_slug() for cat in Category.objects.all()]
     return render_to_response('home.html', c, context_instance=RequestContext(request))
 
 def category(request, slug):
@@ -54,6 +55,8 @@ def category(request, slug):
     breadcrumbs.reverse()
     c['titles'] = breadcrumbs[:-1]
     c['items'] = Item.objects.filter(category=c['category'])
+    if len(c['items']) == 0:
+        c['items'] = Item.objects.filter(category__in=c['category'].get_descendants(include_self=True))
     return render_to_response('category.html', c, context_instance=RequestContext(request))    
 
 def vendor(request, slug):
@@ -92,7 +95,6 @@ def order(request):
         if form.is_valid():
             order = form.save(request=request)
             c['order'] = order
-            print '***', order.id
             return render_to_response('order_ok.html', c, context_instance=RequestContext(request))
         else:
             c['form'] = form

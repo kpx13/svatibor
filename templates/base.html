@@ -108,7 +108,7 @@ widgets.addOnloadEvent(function() {
                         <td class="mid-td3">&nbsp;</td>
                         <td class="mid-td2"><a href="/akcii-i-skidki"><img src="/static/d/64379/t/v0/images/top-pic1.png" alt="" /></a></td>
                         <td class="mid-td1">&nbsp;</td>
-                        <td class="mid-td2"><a href="/category/9_premio-new/"><img src="/static/d/64379/t/v0/images/top-pic2.png" alt="" /></a></td>
+                        <td class="mid-td2"><a href="/mezhkomnatnyie-dveri/aleksandrijskie-dveri/premio-new/"><img src="/static/d/64379/t/v0/images/top-pic2.png" alt="" /></a></td>
                         <td class="mid-td1">&nbsp;</td>
                         <td class="mid-td4"><a href="/magaziny1"><img src="/static/d/64379/t/v0/images/top-pic3.png" alt="" /></a></td>
                       </tr>
@@ -134,13 +134,13 @@ widgets.addOnloadEvent(function() {
     
     <ul class="left-menu">    
     {% for node in categories %}
-        <li class="level-1"><a href="/category/{{ node.slug }}/"><span class="after"></span>{{ node.name }}</a></li>
+        <li class="level-1"><a href="/{{ node.slug }}/"><span class="after"></span>{{ node.name }}</a></li>
         {% if not node.is_leaf_node %}
             {% for i in node.children.all %}
-                <li class="level-2 {% if forloop.counter == 0 %} {% endif %}"><a href="/category/{{ i.slug }}/"><span class="after"></span>{{ i.name }}</a></li>
+                <li class="level-2 {% if forloop.counter == 0 %} {% endif %}"><a href="/{{ i.slug }}/"><span class="after"></span>{{ i.name }}</a></li>
                 {% if not i.is_leaf_node %}
                     {% for j in i.children.all %}
-                        <li class="level-3 "><a  href="/category/{{ j.slug }}/">{{ j.name }}</a></li>
+                        <li class="level-3 "><a  href="/{{ j.slug }}/">{{ j.name }}</a></li>
                     {% endfor %}
                 {% endif %}
             {% endfor %}

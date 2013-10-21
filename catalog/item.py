@@ -9,7 +9,7 @@ from category import Category
 
 class Item(models.Model): 
     category = models.ForeignKey(Category, verbose_name=u'категория')
-    producer = models.ForeignKey(Producer, blank=True, verbose_name=u'производитель')
+    producer = models.ForeignKey(Producer, blank=True, null=True, verbose_name=u'производитель')
     name = models.CharField(max_length=512, verbose_name=u'название')
     art = models.CharField(max_length=50, blank=True, verbose_name=u'артикул')
     price = models.FloatField(verbose_name=u'цена')
@@ -19,13 +19,13 @@ class Item(models.Model):
     stock = models.IntegerField(default=0, verbose_name=u'в наличии')
     is_novelty = models.BooleanField(default=False, blank=True, verbose_name=u'это новинка')
     slug = models.SlugField(max_length=240, verbose_name=u'слаг', unique=True, blank=True, help_text=u'Заполнять не нужно')
-    product_id = models.CharField(max_length=20, blank=True, verbose_name=u'product_id со старого сайта')
+    product_id = models.CharField(max_length=70, blank=True, verbose_name=u'product_id со старого сайта')
     
     
     def save(self, *args, **kwargs):
         super(Item, self).save(*args, **kwargs)
         if not self.slug:
-            self.slug= str(self.category.slug)+ '_' + pytils.translit.slugify(self.name) + '_' + str(self.id)
+            self.slug= pytils.translit.slugify(self.name) + '_' + str(self.id)
             self.slug = self.slug[:100]
             self.save()
         

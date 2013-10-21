@@ -16,14 +16,16 @@ from sessionworking import SessionCartWorking
 from shop.forms import OrderForm
 from gallery.models import Category as Album
 from gallery.models import Photo
-from catalog.parse import go_gallery, go_items
+from catalog.parse import copy_categories
 
 
 def get_common_context(request):
     c = {}
     c['request_url'] = request.path
     c['is_debug'] = settings.DEBUG
-    c['categories'] = Category.objects.filter(parent=None).extra(order_by = ['id'])
+    c['categories'] = Category.get_top()
+    for cat in c['categories']:
+        print cat.order_par, cat.name
     c['cart_working'] = SessionCartWorking(request)
     c['cart_count'], c['cart_sum'] = c['cart_working'].get_goods_count_and_sum()
     c.update(csrf(request))
@@ -41,16 +43,16 @@ def page_page(request, page_name):
 def home(request):
     c = get_common_context(request)
     c['request_url'] = 'home'    
-    #[cat.reset_slug() for cat in Category.objects.all()]
+    #[cat.reset_order() for cat in Category.objects.all()]
+    #go('/home/kpx/svatibor/3.xml')
+    #copy_categories()
     return render_to_response('home.html', c, context_instance=RequestContext(request))
 
 def category(request, slug):
     c = get_common_context(request)
     c['category'] = Category.get_by_slug(slug)
     if not c['category']:
-        print '^^^^^^^'
         return page_page(request, slug)
-    print '(((((((('
     page = c['category']
     breadcrumbs = []
     while page:

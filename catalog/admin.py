@@ -7,7 +7,7 @@ class ProducerAdmin(admin.ModelAdmin):
     list_display = ('name', 'slug')
     
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('__unicode__', 'name', 'slug')
+    list_display = ('__unicode__', 'name', 'slug', 'order_par')
     
 class ItemAdmin(admin.ModelAdmin):
     list_display = ('art', 'name', 'category', 'price', 'stock', 'is_novelty')

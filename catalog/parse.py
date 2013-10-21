@@ -178,4 +178,59 @@ def go_gallery():
                   name=img['alt'],
                   image=filepath).save()
             print img['alt'] 
-        
+
+
+import urllib2
+from bs4 import BeautifulSoup
+
+def copy_categories():
+    LIST_URL = 'http://www.svatibor.ru/internet_magazin/folder/24738403'
+    c = urllib2.urlopen(LIST_URL)
+    soup = BeautifulSoup(c.read())
+    CATEGORIES = []
+    for div in soup.findAll('div', attrs={'class' : 'tovar'}):
+        prod = div.findAll('h2')[0].findAll('a')[0]['href']
+        CATEGORIES.append(prod)
+
+    BASE_URL = 'http://www.svatibor.ru'
+    
+    for url in CATEGORIES:
+        print BASE_URL + url
+        cat = Category.objects.get(id=26)
+        prod = Producer.objects.get(id=9)
+        c = urllib2.urlopen(BASE_URL + url)
+        soup = BeautifulSoup(c.read())
+        text = str(soup.findAll('div', attrs={'class' : 'full'})[0]).replace('\n', '<br />')
+        stock=100
+        art = soup.findAll('div', attrs={'id' : 'tovar_card'})[0].findAll('ul', attrs={'id' : 'p_list'})[0].findAll('span')[0].string
+        price = soup.findAll('div', attrs={'id' : 'tovar_card'})[0].findAll('li', attrs={'class': 'price'})[0].findAll('span')[0].findAll('b')[0].string
+        name = soup.findAll('div', attrs={'id' : 'tovar_detail'})[0].findAll('h1')[0].string
+        is_novelty = len(soup.findAll('li', attrs={'class' : 'new'})) > 0
+        image = 'http://www.svatibor.ru' + soup.findAll('div', attrs={'id' : 'tovar_card'})[0].findAll('a')[0]['href']
+        i = Item(category=cat,
+            name=name,
+            price=price,
+            producer = prod,
+            description=u'цена за полотно',
+            product_id=url,
+            text=text,
+            stock=stock,
+            art=art,
+            is_novelty=is_novelty
+            )
+        i.save()
+        if image.endswith('.jpg'):
+            f = open('media/uploads/items/%s.jpg' % i.id,'wb')
+            f.write(urllib2.urlopen(image).read())
+            f.close()
+            i.image = 'uploads/items/%s.jpg' % i.id
+        elif image.endswith('.png'):
+            f = open('media/uploads/items/%s.png' % i.id,'wb')
+            f.write(urllib2.urlopen(image).read())
+            f.close()
+            i.image = 'uploads/items/%s.png' % i.id
+        else:
+            print 'ERROR: ', image
+        i.save()
+    
+ 

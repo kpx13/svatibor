@@ -16,7 +16,6 @@ from sessionworking import SessionCartWorking
 from shop.forms import OrderForm
 from gallery.models import Category as Album
 from gallery.models import Photo
-from catalog.parse import copy_categories
 
 
 def get_common_context(request):

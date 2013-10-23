@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 import pytils
 from django.db import models
+from ckeditor.fields import RichTextField
 from mptt.models import MPTTModel, TreeForeignKey
 
 class Category(MPTTModel):
     parent = TreeForeignKey('self', null=True, blank=True, related_name='children', verbose_name=u'родитель')
     name = models.CharField(max_length=512, verbose_name=u'название')
-    slug = models.SlugField(verbose_name=u'слаг', max_length=200, unique=True, blank=True, help_text=u'Заполнять не нужно')
+    content = RichTextField(blank=True, verbose_name=u'контент')
+    slug = models.CharField(verbose_name=u'слаг', max_length=200, unique=True, blank=True, help_text=u'Заполнять не нужно')
     folder_id = models.CharField(max_length=20, blank=True, verbose_name=u'folder_id со старого сайта')
     order_par = models.IntegerField(max_length=20, blank=True, default=666, verbose_name=u'порядок сортировки')
     

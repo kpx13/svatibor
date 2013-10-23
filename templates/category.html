@@ -14,6 +14,8 @@
         </div>
 
         <h2 class="shop-product-title">{{ category.name }}</h2>
+        
+        {{ category.content|safe }}
 
         <div class="highslide-heading" id="the-heading" style="display:none">
             <a href="#" onclick="return hs.close()">закрыть</a>

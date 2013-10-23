@@ -136,11 +136,13 @@ widgets.addOnloadEvent(function() {
     {% for node in categories %}
         <li class="level-1"><a href="/{{ node.slug }}/"><span class="after"></span>{{ node.name }}</a></li>
         {% if not node.is_leaf_node %}
-            {% for i in node.children.all %}
-                <li class="level-2 {% if forloop.counter == 0 %} {% endif %}"><a href="/{{ i.slug }}/"><span class="after"></span>{{ i.name }}</a></li>
-                {% if not i.is_leaf_node %}
-                    {% for j in i.children.all %}
-                        <li class="level-3 "><a  href="/{{ j.slug }}/">{{ j.name }}</a></li>
+            {% regroup node.children.all|dictsort:"id" by id as lvl2 %}
+            {% for i in lvl2 %}
+                <li class="level-2 {% if forloop.counter == 0 %} {% endif %}"><a href="/{{ i.list.0.slug }}/"><span class="after"></span>{{ i.list.0.name }}</a></li>
+                {% if not i.list.0.is_leaf_node %}
+                    {% regroup i.list.0.children.all|dictsort:"id" by id as lvl3 %}
+                    {% for j in lvl3 %}
+                        <li class="level-3 "><a  href="/{{ j.list.0.slug }}/">{{ j.list.0.name }}</a></li>
                     {% endfor %}
                 {% endif %}
             {% endfor %}

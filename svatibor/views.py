@@ -24,8 +24,6 @@ def get_common_context(request):
     c['request_url'] = request.path
     c['is_debug'] = settings.DEBUG
     c['categories'] = Category.get_top()
-    for cat in c['categories']:
-        print cat.order_par, cat.name
     c['cart_working'] = SessionCartWorking(request)
     c['cart_count'], c['cart_sum'] = c['cart_working'].get_goods_count_and_sum()
     c.update(csrf(request))
@@ -43,9 +41,6 @@ def page_page(request, page_name):
 def home(request):
     c = get_common_context(request)
     c['request_url'] = 'home'    
-    #[cat.reset_order() for cat in Category.objects.all()]
-    #go('/home/kpx/svatibor/3.xml')
-    #copy_categories()
     return render_to_response('home.html', c, context_instance=RequestContext(request))
 
 def category(request, slug):

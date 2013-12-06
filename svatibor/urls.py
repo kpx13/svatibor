@@ -36,6 +36,7 @@ urlpatterns = patterns('',
     url(r'^internet_magazin/folder/(?P<folder_id>[\w-]+)/$', views.category_old),
     url(r'^internet_magazin/product/(?P<product_id>[\w-]+)/$', views.item_old),
     url(r'^internet_magazin/(?P<page_name>[\w-]+)/$', views.page_old),
+    url(r'^internet_magazin/', views.page_old_old),
     
     url(r'^(?P<slug>[\w/-]+)/$', views.category),
     #url(r'^(?P<page_name>[\w-]+)/$' , views.page),

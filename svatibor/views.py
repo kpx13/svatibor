@@ -138,3 +138,8 @@ def item_old(request, product_id):
     
 def page_old(request, page_name):
     return HttpResponseRedirect('/%s/' % page_name)
+
+def page_old_old(request):
+    if request.GET.get('mode', '') == 'folder':
+        return HttpResponseRedirect('/internet_magazin/folder/%s/' % request.GET.get('folder_id', '')) 
+    
